@@ -36,7 +36,7 @@ export function Header() {
           color: '#475569',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          textAlign: 'center',
+          textAlign: 'right',
         }}>
           Simulador de ahorro con renovables
         </span>
