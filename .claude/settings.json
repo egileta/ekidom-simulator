@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/w11/Documents/PROYECTOS//**)",
+      "Read(//c/Users/w11/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/**)",
+      "Bash(/c/Users/w11/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir /c/Users/w11/Documents/PROYECTOS/EKIDOM)",
+      "Read(//c/Users/w11/AppData/Local/Temp/claude/c--Users-w11-Documents-PROYECTOS-EKIDOM/a93c3a7f-cc82-4470-85a0-232a6eee9af6/tasks/**)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs\")",
+      "Read(//c/Users/w11/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/subagent-driven-development/**)",
+      "Bash(npm create:*)",
+      "Read(//c/Program Files/nodejs//**)",
+      "Bash(export PATH=\"/c/Program Files/nodejs:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(git init:*)",
+      "Bash(npx vitest:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
