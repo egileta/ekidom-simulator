@@ -41,8 +41,6 @@ export function ResultsPanel() {
     setPanelHeight(h => h >= pts[2] ? pts[1] : pts[2])
   }
 
-  const showExpanded = panelHeight > 300
-
   return (
     <>
       {/* ── Desktop: sticky right column ── */}
@@ -82,43 +80,44 @@ export function ResultsPanel() {
           borderRadius: '20px 20px 0 0',
           zIndex: 90,
           boxShadow: '0 -8px 40px rgba(0,0,0,0.7)',
-          overflowY: 'auto',
-          padding: '10px 16px 20px',
-          display: 'flex', flexDirection: 'column', gap: 10,
+          display: 'flex', flexDirection: 'column',
+          overflow: 'hidden',
           transition: isDragging ? 'none' : 'height 0.35s ease',
         }}
       >
-        {/* Draggable handle */}
+        {/* Handle — FIXED: outside the scroll area */}
         <div
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
           onClick={onHandleClick}
           style={{
+            flexShrink: 0,
+            padding: '10px 16px 6px',
             textAlign: 'center',
             cursor: 'grab',
-            paddingBottom: 2,
             touchAction: 'none',
+            background: '#080d1a',
+            borderRadius: '20px 20px 0 0',
           }}
         >
           <div style={{
             width: 36, height: 4,
-            background: isDragging ? 'rgba(255,255,255,0.40)' : 'rgba(255,255,255,0.18)',
-            borderRadius: 2, margin: '0 auto 8px',
-            transition: 'background 0.2s',
+            background: isDragging ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.18)',
+            borderRadius: 2, margin: '0 auto',
+            transition: 'background 0.15s',
           }} />
         </div>
 
-        <ServiceToggles />
-        <SavingsCard />
-
-        {/* Always mounted — avoids Recharts ResponsiveContainer 0-width bug */}
+        {/* Scrollable content — always fully rendered so chart mounts with correct width */}
         <div style={{
-          maxHeight: showExpanded ? 800 : 0,
-          overflow: 'hidden',
-          transition: isDragging ? 'none' : 'max-height 0.3s ease',
+          flex: 1,
+          overflowY: 'auto',
+          padding: '4px 16px 24px',
           display: 'flex', flexDirection: 'column', gap: 10,
         }}>
+          <ServiceToggles />
+          <SavingsCard />
           <MetricsRow />
           <SavingsChart />
         </div>
@@ -126,7 +125,7 @@ export function ResultsPanel() {
 
       <style>{`
         @media (min-width: 701px) { .results-mobile { display: none !important; } }
-        @media (max-width: 700px) { .results-desktop { display: none !important; } }
+        @media (max-width: 700px)  { .results-desktop { display: none !important; } }
       `}</style>
     </>
   )

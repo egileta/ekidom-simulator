@@ -5,7 +5,7 @@ import type { SimulatorInputs, SimulationResults, ClimateData, Services, Locatio
 
 type NumericField = 'roofArea' | 'floorArea' | 'electricKwh' | 'gasKwh' | 'electricPrice' | 'gasPrice'
 
-function computeResults(state: SimulatorInputs): SimulationResults {
+function computeResults(state: SimulatorInputs, subsidyEnabled: boolean): SimulationResults {
   const savings = calcAllSavings(
     {
       roofArea:      state.roofArea,
@@ -19,7 +19,7 @@ function computeResults(state: SimulatorInputs): SimulationResults {
     },
     state.services
   )
-  const budget = calcBudget(state.roofArea, state.floorArea, state.services)
+  const budget = calcBudget(state.roofArea, state.floorArea, state.services, subsidyEnabled)
   const paybackYears = calcPayback(budget, savings.total)
   return { savings, budget, paybackYears }
 }
@@ -27,8 +27,10 @@ function computeResults(state: SimulatorInputs): SimulationResults {
 interface SimulatorState extends SimulatorInputs {
   results: SimulationResults
   climateLoading: boolean
+  subsidyEnabled: boolean
   setField:          (field: NumericField, value: number) => void
   toggleService:     (service: keyof Services) => void
+  toggleSubsidy:     () => void
   setClimate:        (climate: ClimateData) => void
   setLocation:       (location: Location) => void
   setClimateLoading: (v: boolean) => void
@@ -36,30 +38,37 @@ interface SimulatorState extends SimulatorInputs {
 }
 
 const initialInputs: SimulatorInputs = { ...DEFAULTS }
-const initialResults = computeResults(initialInputs)
+const initialResults = computeResults(initialInputs, true)
 
 export const useSimulatorStore = create<SimulatorState>()((set, get) => ({
   ...initialInputs,
   results: initialResults,
   climateLoading: false,
+  subsidyEnabled: true,
 
   setField: (field, value) =>
     set(s => {
       const next = { ...s, [field]: value }
-      return { ...next, results: computeResults(next) }
+      return { ...next, results: computeResults(next, s.subsidyEnabled) }
     }),
 
   toggleService: (service) =>
     set(s => {
       const services = { ...s.services, [service]: !s.services[service] }
       const next = { ...s, services }
-      return { ...next, results: computeResults(next) }
+      return { ...next, results: computeResults(next, s.subsidyEnabled) }
+    }),
+
+  toggleSubsidy: () =>
+    set(s => {
+      const subsidyEnabled = !s.subsidyEnabled
+      return { subsidyEnabled, results: computeResults(s, subsidyEnabled) }
     }),
 
   setClimate: (climate) =>
     set(s => {
       const next = { ...s, climate }
-      return { ...next, results: computeResults(next) }
+      return { ...next, results: computeResults(next, s.subsidyEnabled) }
     }),
 
   setLocation: (location) => set({ location }),
@@ -68,10 +77,12 @@ export const useSimulatorStore = create<SimulatorState>()((set, get) => ({
 
   getInitialState: () => ({
     ...initialInputs,
-    results: computeResults(initialInputs),
+    results: computeResults(initialInputs, true),
     climateLoading: false,
+    subsidyEnabled: true,
     setField:          get().setField,
     toggleService:     get().toggleService,
+    toggleSubsidy:     get().toggleSubsidy,
     setClimate:        get().setClimate,
     setLocation:       get().setLocation,
     setClimateLoading: get().setClimateLoading,

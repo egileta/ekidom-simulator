@@ -36,61 +36,59 @@ export function ServiceToggles() {
 
   return (
     <>
-      {/* ── Desktop: toggle rows ── */}
+      {/* ── Desktop: 3 cards in one row ── */}
       <div className="desktop-toggles">
         <div style={{
           fontSize: 10, fontWeight: 700, letterSpacing: '2px', color: '#60a5fa',
-          textTransform: 'uppercase', marginBottom: 10,
+          textTransform: 'uppercase', marginBottom: 8,
           display: 'flex', alignItems: 'center', gap: 8,
         }}>
           Servicios a contratar
           <span style={{ flex: 1, height: 1, background: 'rgba(96,165,250,0.2)', display: 'block' }} />
         </div>
 
-        {SERVICES.map(svc => {
-          const active = services[svc.key]
-          const saving = savings[svc.key]
-          return (
-            <div
-              key={svc.key}
-              onClick={() => toggleService(svc.key)}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '10px 13px', borderRadius: 10, marginBottom: 8, cursor: 'pointer',
-                border: `1px solid ${active ? svc.borderColor : 'rgba(255,255,255,0.07)'}`,
-                background: active ? svc.bgColor : 'rgba(255,255,255,0.02)',
-                opacity: active ? 1 : 0.45,
-                transition: 'all 0.2s',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                <span style={{ fontSize: 18 }}>{svc.icon}</span>
-                <div>
-                  <div style={{ fontSize: 12, fontWeight: 600 }}>{svc.fullLabel}</div>
-                  <div style={{ fontSize: 10, color: active ? svc.textColor : '#64748b', marginTop: 1 }}>
-                    {active
-                      ? `Ahorro: ${Math.round(saving).toLocaleString('es-ES')} €/año`
-                      : 'desactivado'}
+        <div style={{ display: 'flex', gap: 8 }}>
+          {SERVICES.map(svc => {
+            const active = services[svc.key]
+            const saving = savings[svc.key]
+            return (
+              <div
+                key={svc.key}
+                onClick={() => toggleService(svc.key)}
+                style={{
+                  flex: 1, padding: '9px 10px', borderRadius: 10, cursor: 'pointer',
+                  border: `1px solid ${active ? svc.borderColor : 'rgba(255,255,255,0.07)'}`,
+                  background: active ? svc.bgColor : 'rgba(255,255,255,0.02)',
+                  opacity: active ? 1 : 0.45,
+                  transition: 'all 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <span style={{ fontSize: 15 }}>{svc.icon}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600 }}>{svc.label}</span>
+                  </div>
+                  {/* pill switch */}
+                  <div style={{
+                    width: 30, height: 17, borderRadius: 9, position: 'relative', flexShrink: 0,
+                    background: active ? svc.onColor : 'rgba(255,255,255,0.10)',
+                    transition: 'background 0.2s',
+                  }}>
+                    <div style={{
+                      position: 'absolute', top: 2.5,
+                      left: active ? 15 : 2.5,
+                      width: 12, height: 12, borderRadius: '50%', background: 'white',
+                      transition: 'left 0.2s',
+                    }} />
                   </div>
                 </div>
+                <div style={{ fontSize: 9, color: active ? svc.textColor : '#64748b' }}>
+                  {active ? `${Math.round(saving).toLocaleString('es-ES')} €/año` : 'desactivado'}
+                </div>
               </div>
-
-              {/* pill switch */}
-              <div style={{
-                width: 38, height: 21, borderRadius: 11, position: 'relative', flexShrink: 0,
-                background: active ? svc.onColor : 'rgba(255,255,255,0.10)',
-                transition: 'background 0.2s',
-              }}>
-                <div style={{
-                  position: 'absolute', top: 3,
-                  left: active ? 20 : 3,
-                  width: 15, height: 15, borderRadius: '50%', background: 'white',
-                  transition: 'left 0.2s',
-                }} />
-              </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
 
       {/* ── Mobile: 3 chips in one row ── */}

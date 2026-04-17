@@ -47,10 +47,13 @@ export const DEFAULTS: SimulatorInputs = {
   services: { solar: true, aero: true, suelo: true },
 }
 
-// Seasonal monthly factors for Spain (index 0=Jan … 11=Dec, sums ≈ 12 each)
+// Seasonal monthly factors for Spain (index 0=Jan … 11=Dec, each sums to 12)
+// More extreme range → visible waves in cumulative chart
 export const SEASONAL = {
-  SOLAR: [0.41, 0.62, 0.93, 1.14, 1.34, 1.66, 1.76, 1.55, 1.14, 0.72, 0.41, 0.31],
-  HEAT:  [2.40, 2.07, 1.53, 0.87, 0.33, 0.05, 0.00, 0.00, 0.16, 0.65, 1.64, 2.29],
+  SOLAR: [0.05, 0.14, 0.55, 1.00, 1.43, 2.10, 2.37, 2.04, 1.33, 0.70, 0.22, 0.07],
+  //      Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec  → Σ=12.00
+  HEAT:  [2.46, 2.17, 1.60, 0.80, 0.22, 0.00, 0.00, 0.00, 0.12, 0.64, 1.72, 2.27],
+  //      Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec  → Σ=12.00
 }
 
 export const SLIDER_LIMITS = {

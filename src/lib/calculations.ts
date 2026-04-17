@@ -33,7 +33,8 @@ export function calcSuelo(floorArea: number, aeroSavingsGross: number): number {
 export function calcBudget(
   roofArea: number,
   floorArea: number,
-  services: Services
+  services: Services,
+  subsidyEnabled = true
 ): number {
   const panels = Math.floor(roofArea / SOLAR.M2_PER_PANEL)
   const costSolar = panels * SOLAR.COST_PER_PANEL
@@ -42,7 +43,7 @@ export function calcBudget(
   const gross = (services.solar ? costSolar : 0)
               + (services.aero  ? costAero  : 0)
               + (services.suelo ? costSuelo : 0)
-  return gross * (1 - FINANCE.SUBSIDY_RATE)
+  return subsidyEnabled ? gross * (1 - FINANCE.SUBSIDY_RATE) : gross
 }
 
 export function calcPayback(budget: number, savingsTotal: number): number {
