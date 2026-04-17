@@ -13,7 +13,7 @@ interface ServiceConfig {
 
 const SERVICES: ServiceConfig[] = [
   {
-    key: 'solar', icon: '☀️', label: 'Solar', fullLabel: 'Placas solares',
+    key: 'solar', icon: '☀️', label: 'Placas solares', fullLabel: 'Placas solares',
     onColor: '#3b82f6', textColor: '#93c5fd',
     bgColor: 'rgba(59,130,246,0.10)', borderColor: 'rgba(59,130,246,0.30)',
   },
@@ -23,7 +23,7 @@ const SERVICES: ServiceConfig[] = [
     bgColor: 'rgba(16,185,129,0.08)', borderColor: 'rgba(16,185,129,0.25)',
   },
   {
-    key: 'suelo', icon: '🏠', label: 'S. Rad.', fullLabel: 'Suelo radiante',
+    key: 'suelo', icon: '🏠', label: 'Suelo radiante', fullLabel: 'Suelo radiante',
     onColor: '#f59e0b', textColor: '#fcd34d',
     bgColor: 'rgba(245,158,11,0.08)', borderColor: 'rgba(245,158,11,0.25)',
   },
@@ -83,7 +83,7 @@ export function ServiceToggles() {
                   </div>
                 </div>
                 <div style={{ fontSize: 9, color: active ? svc.textColor : '#64748b' }}>
-                  {active ? `${Math.round(saving).toLocaleString('es-ES')} €/año` : 'desactivado'}
+                  {active ? `Ahorro estimado ${Math.round(saving).toLocaleString('es-ES')} €/año` : 'desactivado'}
                 </div>
               </div>
             )
@@ -108,7 +108,7 @@ export function ServiceToggles() {
               }}
             >
               <span style={{ fontSize: 16 }}>{svc.icon}</span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: svc.textColor }}>{svc.label}</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: svc.textColor, textAlign: 'center', lineHeight: 1.2 }}>{svc.label}</span>
               <span style={{ fontSize: 9, color: active ? '#6ee7b7' : '#475569' }}>
                 {active ? '✓ activo' : '—'}
               </span>

@@ -24,13 +24,13 @@ export function Header() {
           ) : (
             <div style={{
               width: 30, height: 30, borderRadius: '50%',
-              background: 'linear-gradient(135deg,#f59e0b,#60a5fa)',
+              background: 'linear-gradient(135deg,#C4C232,#60a5fa)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 11, fontWeight: 800, color: '#fff',
             }}>E</div>
           )}
           <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.5 }}>
-            <span style={{ color: '#f59e0b' }}>Eki</span>
+            <span style={{ color: '#C4C232' }}>Eki</span>
             <span style={{ color: '#60a5fa' }}>dom</span>
           </span>
         </div>
@@ -51,7 +51,7 @@ export function Header() {
           }}
         >
           ¿Cuánto puedes ahorrar con{' '}
-          <span style={{ color: '#f59e0b' }}>energía renovable</span>?
+          <span style={{ color: '#C4C232' }}>energía renovable</span>?
         </h1>
 
         {/* Link */}

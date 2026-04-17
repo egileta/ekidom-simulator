@@ -14,7 +14,7 @@ function snapTo(h: number): number {
 }
 
 export function ResultsPanel() {
-  const [panelHeight, setPanelHeight] = useState(220)
+  const [panelHeight, setPanelHeight] = useState(() => Math.round(window.innerHeight * 0.50))
   const [isDragging, setIsDragging] = useState(false)
   const dragState = useRef<{ startY: number; startH: number } | null>(null)
 

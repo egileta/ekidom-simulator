@@ -63,7 +63,7 @@ export const SLIDER_LIMITS = {
   gasKwh:        { min: 2000, max: 40000, step: 200   },
   electricPrice: { min: 0.08, max: 0.40,  step: 0.01  },
   gasPrice:      { min: 0.03, max: 0.20,  step: 0.01  },
-  hsp:           { min: 2.0,  max: 7.0,   step: 0.1   },
-  windSpeed:     { min: 1.0,  max: 8.0,   step: 0.1   },
+  hsp:           { min: 2.0,  max: 16.0,  step: 0.1   },
+  windSpeed:     { min: 1.0,  max: 30.0,  step: 0.5   },
   winterTemp:    { min: -5,   max: 15,    step: 1     },
 }
