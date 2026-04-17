@@ -29,9 +29,8 @@ export function Header() {
               fontSize: 11, fontWeight: 800, color: '#fff',
             }}>E</div>
           )}
-          <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.5 }}>
-            <span style={{ color: '#C4C232' }}>Eki</span>
-            <span style={{ color: '#60a5fa' }}>dom</span>
+          <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.5, color: '#C4C232' }}>
+            Ekidom
           </span>
         </div>
 
@@ -45,18 +44,8 @@ export function Header() {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         }}>
-          Simulador de ahorro
+          Simulador de ahorro con renovables
         </span>
-
-        {/* Link */}
-        <a
-          href="https://ekidom.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ fontSize: 11, color: '#475569', textDecoration: 'none', flexShrink: 0 }}
-        >
-          ekidom.com ↗
-        </a>
       </header>
 
       <style>{`
