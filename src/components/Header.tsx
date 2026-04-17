@@ -19,19 +19,13 @@ export function Header() {
               src="/ekidom-logo.png"
               alt="Ekidom"
               onError={() => setLogoErr(true)}
-              style={{ width: 30, height: 30, borderRadius: '50%', objectFit: 'cover' }}
+              style={{ width: 200, height: 40, objectFit: 'cover' }}
             />
           ) : (
-            <div style={{
-              width: 30, height: 30, borderRadius: '50%',
-              background: 'linear-gradient(135deg,#C4C232,#60a5fa)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 11, fontWeight: 800, color: '#fff',
-            }}>E</div>
+            <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.5, color: '#C4C232' }}>
+              Ekidom
+            </span>
           )}
-          <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: -0.5, color: '#C4C232' }}>
-            Ekidom
-          </span>
         </div>
 
         {/* Subtitle */}
@@ -40,9 +34,9 @@ export function Header() {
           fontSize: 13,
           fontWeight: 500,
           color: '#475569',
-          whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
+          textAlign: 'center',
         }}>
           Simulador de ahorro con renovables
         </span>
