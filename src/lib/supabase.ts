@@ -17,7 +17,7 @@ export async function sendSimulation(email: string, state: SimulatorState): Prom
   const pdfBase64 = await blobToBase64(pdfBlob)
 
   // 2. Call Edge Function (saves to DB + sends email)
-  const { error } = await supabase.functions.invoke('send-simulation', {
+  const { data, error } = await supabase.functions.invoke('send-simulation', {
     body: {
       email,
       inputs: {
@@ -50,6 +50,7 @@ export async function sendSimulation(email: string, state: SimulatorState): Prom
   })
 
   if (error) throw new Error(error.message)
+  if (data && !data.success) throw new Error(data.error ?? 'Error desconocido')
 }
 
 async function blobToBase64(blob: Blob): Promise<string> {

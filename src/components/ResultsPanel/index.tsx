@@ -3,6 +3,8 @@ import { ServiceToggles } from './ServiceToggles'
 import { SavingsCard } from './SavingsCard'
 import { MetricsRow } from './MetricsRow'
 import { SavingsChart } from './SavingsChart'
+import { useSimulatorStore } from '../../store/simulatorStore'
+import { T } from '../../lib/theme'
 
 function getSnapPoints(): number[] {
   return [100, 220, Math.round(window.innerHeight * 0.50), Math.round(window.innerHeight * 0.85)]
@@ -13,7 +15,15 @@ function snapTo(h: number): number {
   return pts.reduce((best, pt) => Math.abs(pt - h) < Math.abs(best - h) ? pt : best)
 }
 
+function focusEmailInput() {
+  const el = document.getElementById('email-input') as HTMLInputElement | null
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  setTimeout(() => el.focus(), 300)
+}
+
 export function ResultsPanel() {
+  const reset = useSimulatorStore(s => s.reset)
   const [panelHeight, setPanelHeight] = useState(() => Math.round(window.innerHeight * 0.50))
   const [isDragging, setIsDragging] = useState(false)
   const dragState = useRef<{ startY: number; startH: number } | null>(null)
@@ -41,6 +51,36 @@ export function ResultsPanel() {
     setPanelHeight(h => h >= pts[2] ? pts[1] : pts[2])
   }
 
+  const buttonRow = (compact?: boolean) => (
+    <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+      <button
+        onClick={reset}
+        style={{
+          flex: '0 0 calc(33% - 4px)',
+          background: 'rgba(255,255,255,0.05)',
+          border: `1px solid ${T.BORDER}`,
+          borderRadius: 10, padding: compact ? '10px 0' : '12px 0',
+          color: T.TEXT_MUTED, fontSize: compact ? 11 : 12, fontWeight: 600,
+          cursor: 'pointer',
+        }}
+      >
+        ↺ Reiniciar
+      </button>
+      <button
+        style={{
+          flex: 1,
+          background: T.GRAD_CTA,
+          border: 'none', borderRadius: 10, padding: compact ? '10px 14px' : '12px 14px',
+          color: 'white', fontSize: compact ? 12 : 13, fontWeight: 700,
+          cursor: 'pointer',
+        }}
+        onClick={focusEmailInput}
+      >
+        Solicitar presupuesto →
+      </button>
+    </div>
+  )
+
   return (
     <>
       {/* ── Desktop: sticky right column ── */}
@@ -48,7 +88,7 @@ export function ResultsPanel() {
         position: 'sticky', top: 50,
         height: 'calc(100vh - 50px)',
         overflowY: 'auto',
-        background: '#080d1a',
+        background: T.BG_RESULTS,
         padding: '22px 22px 24px',
         display: 'flex', flexDirection: 'column', gap: 12,
       }}>
@@ -56,17 +96,7 @@ export function ResultsPanel() {
         <SavingsCard />
         <MetricsRow />
         <SavingsChart />
-        <button
-          style={{
-            background: 'linear-gradient(135deg,#f59e0b,#ef4444)',
-            border: 'none', borderRadius: 10, padding: 13,
-            color: 'white', fontSize: 13, fontWeight: 700,
-            cursor: 'pointer', width: '100%',
-          }}
-          onClick={() => document.querySelector<HTMLInputElement>('input[type=email]')?.focus()}
-        >
-          Solicitar presupuesto real →
-        </button>
+        {buttonRow()}
       </div>
 
       {/* ── Mobile: fixed bottom panel ── */}
@@ -75,8 +105,8 @@ export function ResultsPanel() {
         style={{
           position: 'fixed', bottom: 0, left: 0, right: 0,
           height: panelHeight,
-          background: '#080d1a',
-          borderTop: '1px solid rgba(255,255,255,0.10)',
+          background: T.BG_RESULTS,
+          borderTop: `1px solid ${T.BORDER_SOFT}`,
           borderRadius: '20px 20px 0 0',
           zIndex: 90,
           boxShadow: '0 -8px 40px rgba(0,0,0,0.7)',
@@ -97,7 +127,7 @@ export function ResultsPanel() {
             textAlign: 'center',
             cursor: 'grab',
             touchAction: 'none',
-            background: '#080d1a',
+            background: T.BG_RESULTS,
             borderRadius: '20px 20px 0 0',
           }}
         >
@@ -107,6 +137,11 @@ export function ResultsPanel() {
             borderRadius: 2, margin: '0 auto',
             transition: 'background 0.15s',
           }} />
+        </div>
+
+        {/* Button row — FIXED: outside the scroll area */}
+        <div style={{ flexShrink: 0, padding: '0 16px 8px' }}>
+          {buttonRow(true)}
         </div>
 
         {/* Scrollable content — always fully rendered so chart mounts with correct width */}

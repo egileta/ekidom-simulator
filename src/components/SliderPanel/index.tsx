@@ -1,5 +1,6 @@
 import { useSimulatorStore } from '../../store/simulatorStore'
 import { SLIDER_LIMITS } from '../../lib/constants'
+import { T } from '../../lib/theme'
 import { SliderGroup } from './SliderGroup'
 import { LocationInput } from './LocationInput'
 import { EmailCapture } from '../EmailCapture'
@@ -7,7 +8,7 @@ import { sendSimulation } from '../../lib/supabase'
 
 const SectionLabel = ({ children }: { children: string }) => (
   <div style={{
-    fontSize: 10, fontWeight: 700, letterSpacing: '2px', color: '#60a5fa',
+    fontSize: 10, fontWeight: 700, letterSpacing: '2px', color: T.DOM,
     textTransform: 'uppercase', margin: '22px 0 14px',
     display: 'flex', alignItems: 'center', gap: 8,
   }}>
@@ -17,20 +18,34 @@ const SectionLabel = ({ children }: { children: string }) => (
 )
 
 export function SliderPanel() {
-  const s       = useSimulatorStore()
-  const L       = SLIDER_LIMITS
-
-  const fmt2  = (v: number) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  const s = useSimulatorStore()
+  const L = SLIDER_LIMITS
+  const fmt2 = (v: number) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
   return (
     <div style={{
-      padding: '28px 28px 32px',
-      background: '#0d1425',
+      padding: '20px 28px',
+      paddingBottom: 'calc(50vh + 60px)',
+      background: T.BG_SLIDER,
       borderRight: '1px solid rgba(255,255,255,0.06)',
-      // Mobile: extra bottom padding so content isn't hidden behind fixed panel
-      paddingBottom: 'max(32px, 380px)',
     }}>
+      {/* ── Instructions ── */}
+      <p style={{
+        fontSize: 12, color: T.TEXT_MUTED, lineHeight: 1.65,
+        margin: '0 0 16px', padding: '10px 13px',
+        background: 'rgba(96,165,250,0.04)',
+        border: `1px solid ${T.BORDER}`,
+        borderRadius: 10,
+      }}>
+        Introduzca dirección, superficies y consumos.<br />
+        Por defecto se muestran valores medios de España.
+      </p>
 
+      {/* ── Localidad — moved above sliders ── */}
+      <SectionLabel>Localidad</SectionLabel>
+      <LocationInput />
+
+      {/* ── Vivienda ── */}
       <SectionLabel>Tu vivienda</SectionLabel>
 
       <SliderGroup label="Superficie de tejado disponible"
@@ -42,6 +57,7 @@ export function SliderPanel() {
         disabled={!s.services.suelo}
         onChange={v => s.setField('floorArea', v)} />
 
+      {/* ── Consumo ── */}
       <SectionLabel>Tu consumo energético</SectionLabel>
 
       <SliderGroup label="Consumo eléctrico anual"
@@ -53,6 +69,7 @@ export function SliderPanel() {
         disabled={!s.services.aero}
         onChange={v => s.setField('gasKwh', v)} />
 
+      {/* ── Tarifas ── */}
       <SectionLabel>Tus tarifas actuales</SectionLabel>
 
       <SliderGroup label="Precio electricidad"
@@ -66,9 +83,8 @@ export function SliderPanel() {
         formatValue={fmt2}
         onChange={v => s.setField('gasPrice', v)} />
 
-      <SectionLabel>Tu ubicación y clima</SectionLabel>
-
-      <LocationInput />
+      {/* ── Clima ── */}
+      <SectionLabel>Datos climáticos</SectionLabel>
 
       <SliderGroup label="Horas de sol pico (HSP)"
         value={s.climate.hsp} {...L.hsp} unit="h/día" color="blue"
@@ -84,10 +100,13 @@ export function SliderPanel() {
       <SliderGroup label="Temperatura media invierno"
         value={s.climate.winterTemp} {...L.winterTemp} unit="°C" color="green"
         disabled={!s.services.aero}
-        formatValue={v => `${v > 0 ? '' : ''}${v.toFixed(0)}`}
+        formatValue={v => `${v.toFixed(0)}`}
         onChange={v => s.setClimate({ ...s.climate, winterTemp: v })} />
 
-      <EmailCapture onSubmit={email => sendSimulation(email, s)} />
+      <EmailCapture
+        onSubmit={email => sendSimulation(email, s)}
+        onReset={s.reset}
+      />
     </div>
   )
 }

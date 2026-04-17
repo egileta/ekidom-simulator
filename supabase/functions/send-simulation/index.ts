@@ -66,8 +66,10 @@ Deno.serve(async (req) => {
     })
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: (err as Error).message }), {
-      status: 500,
+    // Always return 200 so the client receives the error body (non-2xx triggers
+    // a generic Supabase FunctionsHttpError that hides the real message).
+    return new Response(JSON.stringify({ success: false, error: (err as Error).message }), {
+      status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }

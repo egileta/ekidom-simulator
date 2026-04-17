@@ -31,6 +31,7 @@ interface SimulatorState extends SimulatorInputs {
   setField:          (field: NumericField, value: number) => void
   toggleService:     (service: keyof Services) => void
   toggleSubsidy:     () => void
+  reset:             () => void
   setClimate:        (climate: ClimateData) => void
   setLocation:       (location: Location) => void
   setClimateLoading: (v: boolean) => void
@@ -65,6 +66,9 @@ export const useSimulatorStore = create<SimulatorState>()((set, get) => ({
       return { subsidyEnabled, results: computeResults(s, subsidyEnabled) }
     }),
 
+  reset: () =>
+    set({ ...initialInputs, results: computeResults(initialInputs, true), subsidyEnabled: true }),
+
   setClimate: (climate) =>
     set(s => {
       const next = { ...s, climate }
@@ -83,6 +87,7 @@ export const useSimulatorStore = create<SimulatorState>()((set, get) => ({
     setField:          get().setField,
     toggleService:     get().toggleService,
     toggleSubsidy:     get().toggleSubsidy,
+    reset:             get().reset,
     setClimate:        get().setClimate,
     setLocation:       get().setLocation,
     setClimateLoading: get().setClimateLoading,
