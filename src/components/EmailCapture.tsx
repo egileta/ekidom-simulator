@@ -61,8 +61,11 @@ export function EmailCapture({ onSubmit, onReset }: EmailCaptureProps) {
       <div style={{ fontSize: 10, fontWeight: 700, color: T.WARNING, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 6 }}>
         📧 Recibe tu presupuesto en PDF
       </div>
-      <p style={{ fontSize: 12, color: T.TEXT_MUTED, marginBottom: 12 }}>
+      <p style={{ fontSize: 12, color: T.TEXT_MUTED, marginBottom: 4 }}>
         Guardamos tu simulación y te la enviamos detallada. Sin compromiso.
+      </p>
+      <p style={{ fontSize: 11, color: T.TEXT_DIM, marginBottom: 12 }}>
+        Solo funciona con Gmail de momento.
       </p>
 
       <input

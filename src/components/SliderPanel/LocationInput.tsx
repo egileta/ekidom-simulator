@@ -3,7 +3,7 @@ import { useClimateData } from '../../hooks/useClimateData'
 import { useSimulatorStore } from '../../store/simulatorStore'
 
 export function LocationInput() {
-  const [query, setQuery]   = useState('Madrid, 28001')
+  const [query, setQuery]   = useState('Bilbao 48005')
   const location            = useSimulatorStore(s => s.location)
   const climateLoading      = useSimulatorStore(s => s.climateLoading)
 

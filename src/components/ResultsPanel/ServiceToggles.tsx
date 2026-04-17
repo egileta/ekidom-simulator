@@ -99,7 +99,7 @@ export function ServiceToggles() {
         }}>
           Active tipo de instalaciones
         </div>
-        <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+        <div style={{ display: 'flex', gap: 6, marginBottom: 5 }}>
           {SERVICES.map(svc => {
             const active = services[svc.key]
             return (

@@ -20,18 +20,18 @@ export function SavingsCard() {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg,rgba(59,130,246,0.08),rgba(16,185,129,0.05))',
-      border: '1px solid rgba(59,130,246,0.2)', borderRadius: 13, padding: '13px 15px',
+      background: 'linear-gradient(135deg,rgba(16,185,129,0.10),rgba(52,211,153,0.05))',
+      border: '1px solid rgba(16,185,129,0.30)', borderRadius: 13, padding: '13px 15px',
     }}>
-      <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '1.8px', color: '#60a5fa', textTransform: 'uppercase', marginBottom: 3 }}>
+      <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '1.8px', color: '#34d399', textTransform: 'uppercase', marginBottom: 3 }}>
         Ahorro total anual estimado
       </div>
-      <div style={{ fontSize: 30, fontWeight: 900, lineHeight: 1 }}>
+      <div style={{ fontSize: 30, fontWeight: 900, lineHeight: 1, color: '#6ee7b7' }}>
         {Math.round(animTotal).toLocaleString('es-ES')}
         <span style={{ fontSize: 13, color: '#475569', fontWeight: 400 }}> €/año</span>
       </div>
       <div style={{
-        display: 'inline-block', background: 'rgba(16,185,129,0.15)', color: '#34d399',
+        display: 'inline-block', background: 'rgba(16,185,129,0.18)', color: '#34d399',
         borderRadius: 20, padding: '2px 8px', fontSize: 10, fontWeight: 700, marginTop: 4,
       }}>
         {deltaVsMedia >= 0 ? '↑' : '↓'} {Math.abs(deltaVsMedia)}% vs media nacional
