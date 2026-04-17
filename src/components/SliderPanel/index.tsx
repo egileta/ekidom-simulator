@@ -24,8 +24,7 @@ export function SliderPanel() {
 
   return (
     <div className="slider-panel-wrap" style={{
-      padding: '20px 28px',
-      paddingBottom: 'calc(50vh + 60px)',
+      padding: '20px 28px 60px',
       background: T.BG_SLIDER,
       borderRight: '1px solid rgba(255,255,255,0.06)',
     }}>
