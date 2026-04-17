@@ -123,7 +123,7 @@ export function ResultsPanel() {
           onClick={onHandleClick}
           style={{
             flexShrink: 0,
-            padding: '10px 16px 6px',
+            padding: '10px 16px 10px',
             textAlign: 'center',
             cursor: 'grab',
             touchAction: 'none',

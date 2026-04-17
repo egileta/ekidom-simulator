@@ -35,24 +35,18 @@ export function Header() {
           </span>
         </div>
 
-        {/* Question — 1 line on desktop, wraps to 2 on mobile */}
-        <h1
-          className="header-question"
-          style={{
-            flex: 1,
-            fontSize: 15,
-            fontWeight: 700,
-            margin: 0,
-            lineHeight: 1.35,
-            color: '#e2e8f0',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          ¿Cuánto puedes ahorrar con{' '}
-          <span style={{ color: '#C4C232' }}>energía renovable</span>?
-        </h1>
+        {/* Subtitle */}
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          fontWeight: 500,
+          color: '#475569',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}>
+          Simulador de ahorro
+        </span>
 
         {/* Link */}
         <a

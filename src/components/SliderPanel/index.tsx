@@ -23,23 +23,28 @@ export function SliderPanel() {
   const fmt2 = (v: number) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
   return (
-    <div style={{
+    <div className="slider-panel-wrap" style={{
       padding: '20px 28px',
       paddingBottom: 'calc(50vh + 60px)',
       background: T.BG_SLIDER,
       borderRight: '1px solid rgba(255,255,255,0.06)',
     }}>
       {/* ── Instructions ── */}
-      <p style={{
-        fontSize: 12, color: T.TEXT_MUTED, lineHeight: 1.65,
-        margin: '0 0 16px', padding: '10px 13px',
+      <div style={{
+        margin: '0 0 16px', padding: '12px 13px',
         background: 'rgba(96,165,250,0.04)',
         border: `1px solid ${T.BORDER}`,
         borderRadius: 10,
       }}>
-        Introduzca dirección, superficies y consumos.<br />
-        Por defecto se muestran valores medios de España.
-      </p>
+        <p style={{ fontSize: 14, fontWeight: 700, color: T.TEXT, margin: '0 0 6px', lineHeight: 1.3 }}>
+          ¿Cuánto puedes ahorrar con{' '}
+          <span style={{ color: '#C4C232' }}>energía renovable</span>?
+        </p>
+        <p style={{ fontSize: 12, color: T.TEXT_MUTED, lineHeight: 1.65, margin: 0 }}>
+          Introduzca dirección, superficies y consumos.<br />
+          Por defecto se muestran valores medios de España.
+        </p>
+      </div>
 
       {/* ── Localidad — moved above sliders ── */}
       <SectionLabel>Localidad</SectionLabel>
@@ -107,6 +112,12 @@ export function SliderPanel() {
         onSubmit={email => sendSimulation(email, s)}
         onReset={s.reset}
       />
+
+      <style>{`
+        @media (max-width: 700px) {
+          .slider-panel-wrap { padding: 20px 28px 25vh !important; }
+        }
+      `}</style>
     </div>
   )
 }
