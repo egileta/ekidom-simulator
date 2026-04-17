@@ -114,7 +114,7 @@ export function SliderPanel() {
 
       <style>{`
         @media (max-width: 700px) {
-          .slider-panel-wrap { padding: 20px 28px calc(50vh + 60px) !important; }
+          .slider-panel-wrap { padding: 20px 28px 25vh !important; }
         }
       `}</style>
     </div>
