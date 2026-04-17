@@ -47,6 +47,12 @@ export const DEFAULTS: SimulatorInputs = {
   services: { solar: true, aero: true, suelo: true },
 }
 
+// Seasonal monthly factors for Spain (index 0=Jan … 11=Dec, sums ≈ 12 each)
+export const SEASONAL = {
+  SOLAR: [0.41, 0.62, 0.93, 1.14, 1.34, 1.66, 1.76, 1.55, 1.14, 0.72, 0.41, 0.31],
+  HEAT:  [2.40, 2.07, 1.53, 0.87, 0.33, 0.05, 0.00, 0.00, 0.16, 0.65, 1.64, 2.29],
+}
+
 export const SLIDER_LIMITS = {
   roofArea:      { min: 10,   max: 150,   step: 1     },
   floorArea:     { min: 20,   max: 400,   step: 5     },

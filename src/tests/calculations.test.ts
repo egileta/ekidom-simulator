@@ -71,9 +71,9 @@ describe('calcPayback', () => {
 })
 
 describe('buildProjection', () => {
-  it('returns array of length horizonYears + 1', () => {
+  it('returns array of length horizonYears * 12 + 1', () => {
     const pts = buildProjection({ solar: 780, aero: 620, suelo: 447, total: 1847 }, 10)
-    expect(pts).toHaveLength(11)
+    expect(pts).toHaveLength(121)
   })
 
   it('starts at year 0 with all values 0', () => {
@@ -81,8 +81,10 @@ describe('buildProjection', () => {
     expect(pts[0]).toEqual({ year: 0, solar: 0, aero: 0, suelo: 0, total: 0 })
   })
 
-  it('accumulates linearly', () => {
+  it('accumulates to correct annual totals', () => {
     const pts = buildProjection({ solar: 100, aero: 0, suelo: 0, total: 100 }, 3)
-    expect(pts[3].solar).toBeCloseTo(300, 1)
+    // After 1 year (index 12) solar ≈ 100; after 3 years (index 36) solar ≈ 300
+    expect(pts[12].solar).toBeCloseTo(100, 0)
+    expect(pts[36].solar).toBeCloseTo(300, 0)
   })
 })

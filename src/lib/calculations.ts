@@ -1,4 +1,4 @@
-import { SOLAR, AERO, SUELO, FINANCE } from './constants'
+import { SOLAR, AERO, SUELO, FINANCE, SEASONAL } from './constants'
 import type { Services, ServiceSavings, ProjectionPoint } from '../types'
 
 export function calcSolar(
@@ -77,11 +77,22 @@ export function buildProjection(
   savings: ServiceSavings,
   horizonYears: number
 ): ProjectionPoint[] {
-  return Array.from({ length: horizonYears + 1 }, (_, i) => ({
-    year:  i,
-    solar: +(savings.solar * i).toFixed(0),
-    aero:  +(savings.aero  * i).toFixed(0),
-    suelo: +(savings.suelo * i).toFixed(0),
-    total: +(savings.total * i).toFixed(0),
-  }))
+  const points: ProjectionPoint[] = [{ year: 0, solar: 0, aero: 0, suelo: 0, total: 0 }]
+  let cumSolar = 0, cumAero = 0, cumSuelo = 0
+
+  for (let m = 0; m < horizonYears * 12; m++) {
+    const mi = m % 12
+    cumSolar += (savings.solar / 12) * SEASONAL.SOLAR[mi]
+    cumAero  += (savings.aero  / 12) * SEASONAL.HEAT[mi]
+    cumSuelo += (savings.suelo / 12) * SEASONAL.HEAT[mi]
+    points.push({
+      year:  +((m + 1) / 12).toFixed(4),
+      solar: +cumSolar.toFixed(0),
+      aero:  +cumAero.toFixed(0),
+      suelo: +cumSuelo.toFixed(0),
+      total: +(cumSolar + cumAero + cumSuelo).toFixed(0),
+    })
+  }
+
+  return points
 }

@@ -21,7 +21,7 @@ export async function fetchClimate(lat: number, lon: number): Promise<ClimateDat
       'temperature_2m_min',
     ].join(','),
     timezone: 'auto',
-    past_days: '365',
+    past_days: '92',
   })
   const res = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`)
   if (!res.ok) throw new Error('Climate fetch failed')

@@ -27,12 +27,14 @@ function CustomTooltip({ active, payload, label }: {
   active?: boolean; payload?: TooltipPayload[]; label?: number
 }) {
   if (!active || !payload?.length) return null
+  const yr = label as number
+  const yearLabel = yr === 0 ? 'Hoy' : Number.isInteger(yr) ? `Año ${yr}` : `Año ${yr.toFixed(1)}`
   return (
     <div style={{
       background: '#1e293b', border: '1px solid rgba(255,255,255,0.12)',
       borderRadius: 9, padding: '8px 12px', fontSize: 11,
     }}>
-      <div style={{ color: '#64748b', marginBottom: 4 }}>Año {label}</div>
+      <div style={{ color: '#64748b', marginBottom: 4 }}>{yearLabel}</div>
       {payload.map(p => (
         <div key={p.name} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 2 }}>
           <span style={{ color: p.color }}>{p.name}</span>
@@ -91,9 +93,12 @@ export function SavingsChart() {
           <CartesianGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="0" />
           <XAxis
             dataKey="year"
+            type="number"
+            domain={[0, horizon]}
+            ticks={Array.from({ length: horizon + 1 }, (_, i) => i)}
             tick={{ fill: '#334155', fontSize: 9 }}
             tickLine={false} axisLine={false}
-            tickFormatter={v => v === 0 ? 'Hoy' : `Año ${v}`}
+            tickFormatter={v => v === 0 ? 'Hoy' : `${v}a`}
           />
           <YAxis
             tick={{ fill: '#334155', fontSize: 9 }}
