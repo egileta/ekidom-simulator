@@ -4,7 +4,7 @@ import { T } from '../../lib/theme'
 import { SliderGroup } from './SliderGroup'
 import { LocationInput } from './LocationInput'
 import { EmailCapture } from '../EmailCapture'
-import { sendSimulation } from '../../lib/supabase'
+import { sendSimulation } from '../../lib/email'
 
 const SectionLabel = ({ children }: { children: string }) => (
   <div style={{
