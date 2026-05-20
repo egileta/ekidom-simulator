@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Ekidom Simulador <noreply@ekidom.com>',
+        from: 'Ekidom Simulador <onboarding@resend.dev>',
         to: [email],
         subject: 'Tu simulación de ahorro energético — Ekidom',
         html: `
